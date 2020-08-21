@@ -53,7 +53,7 @@ class PayPalController extends Controller
 
     public function cancelPage()
     {
-        return redirect()->route('cart.index')->with('error','Payment successful!');
+        return redirect()->route('cart.index')->with('error','Payment failed!');
     }
 
     public function getExpressCheckoutSuccess(Request $request, $orderId)
@@ -76,11 +76,6 @@ class PayPalController extends Controller
                 $order = Order::find($orderId);
                 $order->is_paid = 1;
                 $order->save();
-
-                //send mail
-
-               // Mail::to($order->user->email)->send(new OrderPaid($order));
-
 
                return redirect()->route('products.all')->with('message','Payment successful!');
             }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,9 +13,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        //
+        //$order = Order::findOrFail($id);
+        return view('pdf.invoice', compact('order'));
     }
 
     /**
@@ -96,13 +98,13 @@ class OrderController extends Controller
          //payment
          if(request('payment_method') == 'paypal') {
             //redirect to paypal
-             return redirect()->route('paypal.checkout', $order->id);
+           return redirect()->route('paypal.checkout', $order->id);
 
      }
 
         \Cart::session(auth()->id())->clear();
 
-        return redirect()->route('products.all')->with('message','Order has been placed!');
+        return redirect()->route('order.success', $order->id);
 
     }
 
@@ -137,7 +139,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+    
     }
 
     /**
@@ -149,5 +151,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+    public function adminOrder()
+    {
+        $orders =Order::paginate(6);
+        return view('admin.orders.index' , compact('orders'));
     }
 }

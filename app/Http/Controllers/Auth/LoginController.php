@@ -42,7 +42,12 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if($user->role->name == 'admin')
-            $this->redirectTo = '/admin/dashboard';
+        if($user->role->name == 'admin'){
+            $this->redirectTo = '/admin/product';
+        }    
+        else{
+            $this->redirectTo = '/products';
+        }
+
     }
 }

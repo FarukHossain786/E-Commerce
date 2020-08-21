@@ -19,8 +19,8 @@
     </div>
 @endif
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
+    <table class="table table-striped table-sm" style="background: rgb(214, 148, 187)">
+      <thead style="background: rgb(204, 76, 204)">
         <tr>
             <th>#</th>
             <th>Name</th>
@@ -44,7 +44,7 @@
                     <th>{{@$item->profile->address}},{{@$item->profile->country->name}},
                         {{@$item->profile->state->name}},{{@$item->profile->city->name}},{{@$item->profile->country->pin}}</th>
                     <th>{{@$item->profile->phone}}</th>
-                    <th><img src="{{@asset('storage/'.$item->thumbnail)}}" 
+                    <th><img src="{{@asset('storage/'.$item->profile->photo)}}" 
                         alt="{{$item->title}}" class="img-responsive" height="50"/>
                     </th>
                     <th>{{$item->created_at}}</th>

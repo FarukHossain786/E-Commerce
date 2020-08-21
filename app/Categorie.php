@@ -19,6 +19,11 @@ class Categorie extends Model
 
         return $this->belongsToMany('App\Product')->withDefault();
     }
+
+    public function productsCat(){
+
+        return $this->belongsToMany(Product::class, 'categorie_product');
+    }
    
 
     // public function child(){

@@ -7,8 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-     
+    <title>{{ config('app.name') }}</title>
+
+    {{-- rechaptcha --}}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
 
     <!-- Fonts -->
@@ -22,7 +24,7 @@
     
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
 </head>
-<body>
+<body style="background: rgb(105, 170, 155);">
     <div id="app">
         <main class="py-0">
             @yield('content')

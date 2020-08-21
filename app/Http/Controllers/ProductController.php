@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Order;
 use App\Categorie;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('categories')->paginate(3);
+        $products = Product::with('categories')->paginate(6);
         return view('admin.products.index', compact('products'));
     }
 
@@ -169,4 +170,61 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index')
                         ->with('delete','Product deleted successfully');
     }
+//  function for searching product
+    public function searchProducts(Request $request)
+    {
+        $request->validate([
+            'query'=>'required|min: 3'
+        ]);
+        $query =$request->input('query');
+        $products =Product::where('title','like', "%$query%")
+                            ->orWhere('description','like', "%$query%")
+                            ->paginate(9);
+       return view('products.searchProducts')->with('products', $products);
+    }
+// end serch
+
+// Category by for navber
+    public function headphoneProduct()
+    {
+        $category = Categorie::find(27);
+        $products = $category->productsCat;
+        return view('subCat.headphone', compact('products'));
+        
+    }
+
+    public function mobileProduct()
+    {
+        $category = Categorie::find(17);
+        $products = $category->productsCat;
+        return view('subCat.mobile', compact('products'));
+        
+    }
+
+    public function laptopProduct()
+    {
+        $category = Categorie::find(16);
+        $products = $category->productsCat;
+        return view('subCat.laptop', compact('products'));
+        
+    }
+
+    public function chargerProduct()
+    {
+        $category = Categorie::find(23);
+        $products = $category->productsCat;
+        return view('subCat.charger', compact('products'));
+        
+    }
+
+    public function accessoriesProduct()
+    {
+        $category = Categorie::find(18);
+        $products = $category->productsCat;
+        return view('subCat.accessories', compact('products'));
+        
+    }
+    //sub category end
+
+    
 }

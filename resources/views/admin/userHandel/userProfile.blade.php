@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('_navbermain')
 <div class="container">
 <h2 class="modal-title">Make An Profile</h2>
 <form  action="{{route('user.profile.store')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
@@ -19,6 +20,17 @@
 				</div>
 			</li>
 			<li class="list-group-item">
+				<div class="form-group row">
+					<div class="">
+						<div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}" ></div>
+						@if($errors->has('g-recaptcha-response'))
+							<span class="text-red-500 text-sm" style="display:block">
+								<strong style="color: red">{{$errors->first('g-recaptcha-response')}}</strong>
+							</span>
+						@endif
+					
+					</div>
+				</div>
 				<div class="form-group row">
 					<div class="col-lg-12">
 						<input type="submit" name="submit" class="btn btn-primary btn-block " value="SUBMIT" />

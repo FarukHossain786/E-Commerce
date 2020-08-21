@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @include('admin/_navber')
 @include('admin/_main')
-<h1>Product</h1>
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -24,8 +22,8 @@
 
 </div>
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
+    <table class="table table-striped table-sm" style="background: rgb(214, 148, 187)">
+      <thead style="background: rgb(204, 76, 204)">
         <tr>
             <th>#</th>
             <th>Title</th>

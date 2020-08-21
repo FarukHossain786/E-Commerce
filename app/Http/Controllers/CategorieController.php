@@ -14,7 +14,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categories = Categorie::paginate(3);
+        $categories = Categorie::paginate(6);
         //dd($categories);
 
         return view('admin.category.index',[

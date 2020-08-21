@@ -18,8 +18,8 @@
 
 </div>
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
+    <table class="table table-striped table-sm"  style="background: rgb(214, 148, 187)">
+      <thead style="background: rgb(204, 76, 204)">
          <tr>
             <th>#</th>
             <th>Title</th>

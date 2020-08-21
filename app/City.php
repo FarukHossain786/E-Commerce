@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    //
+    protected $guarded = [];
+    public function city(){
+        return $this->belongsTo(Profile::class);
+    }
 }

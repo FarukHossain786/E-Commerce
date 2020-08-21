@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+use App\Rules\Capthca;
 use App\Profile;
 use App\User;
 use App\Country;
 use App\State;
 use App\City;
 
-use Illuminate\Http\Request;
+
 
 class ProfileController extends Controller
 {
@@ -44,11 +48,12 @@ class ProfileController extends Controller
         request()->validate([
             'name'=>'required',
             'email'=>'required|email|unique:users',
-            'password'=>'required|min:6',
+            'password'=>'required', 'string', 'min:6', 'confirmed',
             'password_confirm'=>'required|same:password',
             'address'=>'required',
             'pin'=>'required',
             'phone'=>'required|min:10',
+            'g-recaptcha-response' => new Capthca(),
             
         ]);
             $path = 'images/default-image.jpg';
@@ -58,6 +63,7 @@ class ProfileController extends Controller
                 $name =$name.$ext;
                 $path = $request->photo->storeAs('images/profile', $name, 'public');
             }
+    
         $user =User::create([
             'email'=>$request->email,
             'password'=>bcrypt($request->password),
@@ -77,7 +83,7 @@ class ProfileController extends Controller
         }
         
         if($user && $profile){
-            return back()->with('message','Product successfully added');
+            return redirect('home')->with('message','Product successfully added');
         }
         else{
             return back()->with('error','Something going Wrong');
@@ -93,7 +99,12 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+
+        // $country =Country::all();
+        // $state   =State::all();
+        // $city    =City::all();
+       // $profile =Profile::all();
+        return view('user.profile', compact('profile'));
     }
 
     /**
@@ -104,7 +115,8 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        $countries =Country::all();
+        return view('user.edit', compact('profile', 'countries'));
     }
 
     /**
@@ -116,7 +128,28 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        if($request->has('photo')){
+            \Storage::delete($profile->photo);
+           $extension = ".".$request->photo->getClientOriginalExtension();
+           $name = basename($request->photo->getClientOriginalName(), $extension).time();
+           $name = $name.$extension;
+           $path = $request->photo->storeAs('images/profile', $name, 'public');
+           $profile->photo = $path;
+         }
+
+         $profile->name =$request->name;
+         $profile->address =$request->address;
+         $profile->pin =$request->pin;
+         $profile->phone =$request->phone;
+         $profile->country_id =$request->country_id;
+         $profile->state_id =$request->state_id;
+         $profile->city_id =$request->city_id;
+         
+         if($profile->save()){
+            return redirect(route('user.profile.show',$profile->id))->with('message', "Profile Successfully Updated!");
+        }else{
+            return back()->with('error', "Error Updating Profile");
+        }
     }
 
     /**

@@ -28,7 +28,7 @@
   </div>
        
     <div class="footer-copyright text-center py-3">faruk hossain
-      <a href="https://mdbootstrap.com/">sasta_shop.com</a>
+      <a href="{{route('products.all')}}">sasta_shop.com</a>
     </div>
     <!-- Copyright -->
   

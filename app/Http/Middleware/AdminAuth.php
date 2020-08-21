@@ -17,7 +17,7 @@ class AdminAuth
     public function handle($request, Closure $next)
     {
         if(Auth::user()->role->name == 'customer'){
-            return redirect('/home')->with('message', "You are not an Admin!");
+            return redirect('/')->with('message', "You are not an Admin!");
         }
         return $next($request);
     }

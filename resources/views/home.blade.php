@@ -13,11 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                        <h4>Welcome to Sasta Shop</h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

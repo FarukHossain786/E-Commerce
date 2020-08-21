@@ -1,3 +1,4 @@
+<div style="height: 90vh;;">
 @extends('layouts.app')
 @include('_navbermain')
 <div class="container">
@@ -18,8 +19,8 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
+    <table class="table table-striped table-sm" style="background: rgb(212, 8, 212)">
+      <thead style="background: rgb(206, 148, 206)">
         <tr>
             
             <th>Title</th>
@@ -62,7 +63,7 @@
     </table>
     <div class="d-flex justify-content-between">
         <div >
-            <h3>Total Price :₹{{\Cart::session(auth()->id())->getTotal()}}</h3>
+            <h3 style="color: rgb(57, 24, 150)">Total Price :₹{{\Cart::session(auth()->id())->getTotal()}}</h3>
         </div>
         <div>
             <a type="button" href="{{route('cart.checkout')}}" class="btn btn-primary">Proceed to checkout</a>
@@ -70,3 +71,5 @@
     </div>
 </div>
 </div>
+</div>
+@include('_footer')
